@@ -41,9 +41,6 @@ public class Login extends JFrame implements ActionListener {
         PasswordField.setBounds(300,240,250,30);
         add(PasswordField);
 
-        setSize(800,480);
-        setVisible(true);
-        setLocation(300,100);
 
         Login = new JButton("Sign In");
         Login.setBackground(Color.BLACK);
@@ -66,8 +63,9 @@ public class Login extends JFrame implements ActionListener {
         SignupButton.addActionListener(this);
         add(SignupButton);
 
-
-
+        setSize(800,480);
+        setVisible(true);
+        setLocation(300,100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     @Override
