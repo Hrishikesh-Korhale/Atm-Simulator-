@@ -169,8 +169,44 @@ public class SignupOne extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==next){
+        String formno = ""+random;
+        String name = nameTF.getText();
+        String fname = fnameTF.getText();
+        String dob = ((JTextField)dobDC.getDateEditor().getUiComponent()).getText();
+        String gender=null;
+        if(male.isSelected()){
+            gender="Male";
+        }
+        else if(female.isSelected()){
+            gender="Female";
+        }
+        String email = emailTF.getText();
+        String marrital=null;
+        if(married.isSelected()){
+            marrital="Married";
+        }
+        else if(Unmarried.isSelected()){
+            marrital="Unmarried";
+        }
+        else if(other.isSelected()){
+            marrital="Other";
+        }
+        String address=addressTF.getText();
+        String city =cityTF.getText();
+        String state =stateTF.getText();
+        String pincode = pincodeTF.getText();
 
+        try{
+            if (name.equals("")){
+                JOptionPane.showMessageDialog(null,"Name is Required");
+            }else {
+                Conn c=new Conn();
+                String query ="insert into signup values('"+formno+"','"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marrital+"','"+address+"','"+city+"','"+state+"','"+pincode+"')";
+                c.s.executeUpdate(query);
+            }
+
+        }catch (Exception g){
+            System.out.println(g);
         }
     }
 
