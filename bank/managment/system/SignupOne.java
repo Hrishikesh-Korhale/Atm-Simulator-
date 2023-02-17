@@ -203,11 +203,14 @@ public class SignupOne extends JFrame implements ActionListener {
                 Conn c=new Conn();
                 String query ="insert into signup values('"+formno+"','"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marrital+"','"+address+"','"+city+"','"+state+"','"+pincode+"')";
                 c.s.executeUpdate(query);
+                setVisible(false);
+                new SignupTwo();
             }
 
         }catch (Exception g){
             System.out.println(g);
         }
+
     }
 
     public static void main(String [] args)
