@@ -2,13 +2,16 @@ package bank.managment.system;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class SignupTwo extends JFrame {
+public class SignupTwo extends JFrame implements ActionListener {
     JComboBox religionbox, categoryBox, occupationBox, incomeBox,EQBox;
     JRadioButton Eyes,Eno,Syes,Sno;
     JButton next;
     JTextField panTF,aadharTF;
-    SignupTwo(){
+    String formno;
+    SignupTwo(String formno){
+        this.formno=formno;
         JLabel PersonalDetails = new JLabel("Page 2: Other Details");
         PersonalDetails.setFont(new Font("Raleway",Font.BOLD,22));
         PersonalDetails.setBounds(290,80,400,30);
@@ -142,6 +145,7 @@ public class SignupTwo extends JFrame {
         next.setBackground(Color.BLACK);
         next.setForeground(Color.WHITE);
         next.setBounds(650,600,100,30);
+        next.addActionListener(this);
         add(next);
 
         setTitle("SignUp Form 2");
@@ -151,10 +155,46 @@ public class SignupTwo extends JFrame {
         setLayout(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String sreligion = (String) religionbox.getSelectedItem();
+        String scategory = (String) categoryBox.getSelectedItem();
+        String sincome = (String) incomeBox.getSelectedItem();
+        String squlification = (String)EQBox.getSelectedItem();
+        String soccupation = (String) occupationBox.getSelectedItem();
+        String span = panTF.getText();
+        String saadhar = aadharTF.getText();
+        String seniorcitizen = null;
+        if (Syes.isSelected()){
+            seniorcitizen="Yes";
+        }
+        else if(Sno.isSelected()){
+            seniorcitizen="No";
+        }
+        String ExistingAccount = null;
+        if(Eyes.isSelected()){
+            ExistingAccount="Yes";
+        }
+        else if (Eno.isSelected()){
+            ExistingAccount = "No";
+        }
+
+        try{
+            Conn c = new Conn();
+            String query ="insert into signuptwo values('"+formno+"','"+sreligion+"','"+scategory+"','"+sincome+"','"+squlification+"','"+soccupation+"','"+span+"','"+saadhar+"','"+seniorcitizen+"','"+ExistingAccount+"')";
+            c.s.executeUpdate(query);
+            setVisible(false);
+
+
+        }catch(Exception j){
+            System.out.println(j);
+        }
 
     }
     public static void main(String [] args){
-        new SignupTwo();
+        new SignupTwo("");
+
     }
 }
