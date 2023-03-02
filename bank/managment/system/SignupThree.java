@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class SignupThree extends JFrame implements ActionListener {
         JButton submit , cancel;
@@ -165,8 +166,10 @@ public class SignupThree extends JFrame implements ActionListener {
                 else if(r4.isSelected()){
                         AccountType="Recurring Deposit Account";
                 }
-                String CardNo ="12345678910";
-                String PinNo ="1234";
+                Random random = new Random();
+
+                String CardNo =""+Math.abs((random.nextLong()% 90000000L) + 5040936000000000L);
+                String PinNo =""+ Math.abs((random.nextLong()% 9000L) +1000L);
                 String RServices=null;
                 if (c1.isSelected()){
                         RServices="ATM Card";
@@ -182,13 +185,18 @@ public class SignupThree extends JFrame implements ActionListener {
                         RServices=RServices+" e-Statement";
                 }
                     try{
-                        if (c7.isSelected()){
+                        if (c7.isSelected()==false){
                         JOptionPane.showMessageDialog(null ,"Please Select Declaration");
                         }
                         else {
                             Conn c = new Conn();
                             String query1 = "insert into signupthree values ('"+formno+"','"+AccountType+"','"+CardNo+"','"+PinNo+"','"+RServices+"')";
                             c.s.executeUpdate(query1);
+
+                            JOptionPane.showMessageDialog(null,"Card Number "+CardNo+"\nPin : "+PinNo);
+
+                            String query2 = "insert into login values ('"+formno+"','"+CardNo+"','"+PinNo+"')";
+                            c.s.executeUpdate(query2);
                         }
                 }catch (Exception j){
                         System.out.println(j);
